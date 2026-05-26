@@ -37,6 +37,11 @@ CREATE POLICY "Anyone can insert players" ON ancient_civ_players FOR INSERT WITH
 CREATE POLICY "Anyone can read scores" ON ancient_civ_scores FOR SELECT USING (true);
 CREATE POLICY "Anyone can insert scores" ON ancient_civ_scores FOR INSERT WITH CHECK (true);
 
+-- GRANT table-level permissions to anon role (required even with RLS policies)
+GRANT SELECT, INSERT ON TABLE ancient_civ_players TO anon;
+GRANT SELECT, INSERT ON TABLE ancient_civ_scores TO anon;
+GRANT SELECT ON TABLE ancient_civ_leaderboard TO anon;
+
 -- Leaderboard view (pre-aggregated)
 CREATE OR REPLACE VIEW ancient_civ_leaderboard AS
 SELECT
